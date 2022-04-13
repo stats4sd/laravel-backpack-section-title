@@ -10,13 +10,7 @@ This package was created using the [Laravel Backpack Addon Skeleton](https://git
 
 ## Screenshots
 
-> **// TODO: add a screenshot and delete these lines;**
-> to add a screenshot to a github markdown file, the easiest way is to
-> open an issue, upload the screenshot there with drag&drop, then close the issue;
-> you now have that image hosted on Github's servers; so you can then right-click
-> the image to copy its URL, and use that URL wherever you want (for example... here)
-
-![Backpack Toggle Field Addon](https://via.placeholder.com/600x250?text=screenshot+needed)
+![image](https://user-images.githubusercontent.com/5711101/163187339-b54f12f0-efc1-4769-b967-a7851d59673c.png)
 
 
 ## Installation
