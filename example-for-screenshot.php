@@ -7,6 +7,7 @@ protected function setupCreateOperation()
       'name' => 'field_name',
       'type' => 'section-title',
       'title' => 'Section Title without a content property',
+      'view_namespace' => 'stats4sd.laravel-backpack-section-title::fields',
   ]);
 
   CRUD::field('question 1');
@@ -20,6 +21,7 @@ protected function setupCreateOperation()
       'content' => 'Some information for the, to be displayed inside a callout box. This section-title has a title, content and divider = true.',
       'variant' => 'info',
       'divider' => true,
+      'view_namespace' => 'stats4sd.laravel-backpack-section-title::fields',
   ]);
 
   CRUD::field('question 1 for new section');
@@ -30,6 +32,7 @@ protected function setupCreateOperation()
       'type' => 'section-title',
       'variant' => 'danger',
       'content' => 'NOTE: This example has no title property, and the variant = "danger" to highlight this very important information.',
+      'view_namespace' => 'stats4sd.laravel-backpack-section-title::fields',
   ]);
 
   CRUD::field('final question');
