@@ -11,7 +11,7 @@ This package was created using the [Laravel Backpack Addon Skeleton](https://git
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/5711101/163187339-b54f12f0-efc1-4769-b967-a7851d59673c.png)
-
+Code used to generate the screenshot: [example-for-screenshot.php](https://github.com/stats4sd/laravel-backpack-section-title/blob/main/example-for-screenshot.php)
 
 ## Installation
 
@@ -30,7 +30,7 @@ $this->crud->addField([
     'title' => 'Your Heading',
     'content' => 'Some information about how to complete the form, to be displayed inside a callout box',
     'variant' => 'info',
-    'divider' => true
+    'divider' => true,
     'view_namespace' => 'stats4sd.laravel-backpack-section-title::fields',
 ]);
 ```
