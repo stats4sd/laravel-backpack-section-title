@@ -10,14 +10,8 @@ This package was created using the [Laravel Backpack Addon Skeleton](https://git
 
 ## Screenshots
 
-> **// TODO: add a screenshot and delete these lines;**
-> to add a screenshot to a github markdown file, the easiest way is to
-> open an issue, upload the screenshot there with drag&drop, then close the issue;
-> you now have that image hosted on Github's servers; so you can then right-click
-> the image to copy its URL, and use that URL wherever you want (for example... here)
-
-![Backpack Toggle Field Addon](https://via.placeholder.com/600x250?text=screenshot+needed)
-
+![image](https://user-images.githubusercontent.com/5711101/163187339-b54f12f0-efc1-4769-b967-a7851d59673c.png)
+Code used to generate the screenshot: [example-for-screenshot.php](https://github.com/stats4sd/laravel-backpack-section-title/blob/main/example-for-screenshot.php)
 
 ## Installation
 
@@ -36,7 +30,7 @@ $this->crud->addField([
     'title' => 'Your Heading',
     'content' => 'Some information about how to complete the form, to be displayed inside a callout box',
     'variant' => 'info',
-    'divider' => true
+    'divider' => true,
     'view_namespace' => 'stats4sd.laravel-backpack-section-title::fields',
 ]);
 ```
@@ -44,11 +38,42 @@ $this->crud->addField([
 Notice the ```view_namespace``` attribute - make sure that is exactly as above, to tell Backpack to load the field from this _addon package_, instead of assuming it's inside the _Backpack\CRUD package_.
 
 Optional properties:
- - `title` (string) - text to be displayed inside an `<h4>` tag.
- - `content` (string) - text to be displayed inside a padded callout box.
+ - `title` (string or closure) - text to be displayed inside an `<h4>` tag.
+ - `content` (string or closure) - text to be displayed inside a padded callout box. You can use any html here, and it will be rendered without stipping tags.
  - `variant` (string) - You can use any of the Bootstrap 4 keywords to change the colour of the left border. (e.g. primary, secondary, success, info, warning, danger, light, dark). It defaults to 'info' if left null.
  - `divider` (boolean) - If set to TRUE, this adds an `<hr>` tag above the header, in case you want an even clearer visual divide between content sections.
 
+> NOTE: The content box is rendered with `{!!  !!}`, so there is no safety net! Make sure you never pass user content directly into the content field without sanitising it first...
+
+### Injecting $entry variables into the text
+When doing an Update Operation, you may want to use some properties of the existing record in the title or content of the field. You can do this by making either property a closure with a single parameter "$entry". Your function should return the string you want rendered. For example:
+
+```php
+$this->crud->addField([
+    'name' => 'dynamic title',
+    'type' => 'section-title',
+    'title' => function($entry) {
+        return "Editing " . $entry['name'];
+    }
+]);
+
+```
+
+Note that if you include this in the Create operation, $entry will be null, so write your closure to account for that. For example:
+
+```php
+$this->crud->addField([
+    'name' => 'dynamic title',
+    'type' => 'section-title',
+    'title' => function($entry) {
+        if($entry) {
+            return "Editing " . $entry['name'];
+        } else {
+            return "Creating new entry";
+        }
+    }
+]);
+```
 
 ## Overwriting
 
@@ -60,7 +85,7 @@ If you need to change the field in any way, you can easily publish the file to y
 mkdir -p resources/views/vendor/backpack/crud/fields
 
 # copy the blade file inside the folder we created above
-cp -i vendor/stats4sd/laravel-backpack-section-title/src/resources/views/fields/section-title.blade.php resources/views/vendor/backpack/crud/fields/section-title.blade.php
+cp -i vendor/stats4sd/laravel-backpack-section-title/resources/views/fields/section-title.blade.php resources/views/vendor/backpack/crud/fields/section-title.blade.php
 ```
 
 **Step 2.** Remove the vendor namespace wherever you've used the field:

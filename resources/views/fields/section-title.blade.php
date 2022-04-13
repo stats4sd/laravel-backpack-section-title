@@ -3,6 +3,20 @@
 
 @php
     $variant = $field['variant'] ?? 'info';
+
+    // If the user has specified a closure, then pass in the current entry and return the result of that closure.
+    if(isset($field['title']) && $field['title'] instanceof \Closure) {
+        $title = $field['title']($entry ?? null);
+    } else {
+        $title = $field['title'] ?? null;
+    }
+
+    if(isset($field['content']) && $field['content'] instanceof \Closure) {
+        $content = $field['content']($entry ?? null);
+    } else {
+        $content = $field['content'] ?? null;
+    }
+
 @endphp
 
 @if(array_key_exists('divider', $field) && $field['divider'])
@@ -10,11 +24,11 @@
 @endif
 
 @if(array_key_exists('title', $field))
-    <h4 class="mb-2">{{ $field['title'] }}</h4>
+    <h4 class="mb-2">{{ $title }}</h4>
 @endif
 @if(array_key_exists('content', $field))
     <div class="bd-callout border-{{ $field['variant'] ?? 'info' }}">
-        {!! $field['content'] !!}
+        {!! $content !!}
     </div>
 @endif
 @include('crud::fields.inc.wrapper_end')
